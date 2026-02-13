@@ -5,11 +5,11 @@ This repository contains the data processing, models and training for Human Dete
 <table>
   <tr>
     <td align="center">
-      <img src="docs/images/crane_full.png" width="520" alt="Crane full"/>
+      <img src="docs/images/crane_full.png" width="420" alt="Crane full"/>
       <br/>
     </td>
     <td align="center">
-      <img src="docs/images/crane_zoomed.png" width="520" alt="Crane zoomed"/>
+      <img src="docs/images/crane_zoomed.png" width="420" alt="Crane zoomed"/>
       <br/>
     </td>
   </tr>
