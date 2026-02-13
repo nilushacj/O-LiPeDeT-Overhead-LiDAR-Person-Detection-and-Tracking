@@ -1,0 +1,10 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lidar-human-detection-models"
+version = "0.1.0"
+
+[tool.setuptools]
+packages = ["lidar_human_detection_models", "lidar_human_detection_models.utils"]

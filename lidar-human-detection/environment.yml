@@ -1,0 +1,19 @@
+name: openpcdet
+channels:
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - git
+  - cmake
+  - ninja
+  - cuda-toolkit=12.6           # provides nvcc + CUDA libs
+  - ocl-icd
+  - pip:
+      - numpy
+      - pyquaternion
+      - opencv-python
+      - av2
+      - open3d
