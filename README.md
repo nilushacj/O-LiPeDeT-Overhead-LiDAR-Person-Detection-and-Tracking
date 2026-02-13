@@ -53,10 +53,7 @@ This repository contains the data processing, models and training for Human Dete
   </tr>
 </table>
 
-
-## Dataset
-
-### Directory structure
+## Directory structure
 ```
 /path/to/repo/
   lidar-human-detection/
@@ -93,6 +90,13 @@ This repository contains the data processing, models and training for Human Dete
 
 ```
 
+## Dataset
+
+1. Download our fine-tuned checkpoints from [here](https://drive.google.com/drive/folders/1eNm9W2mOqrCq6ZepU-BIzBEKdWWbFdso?usp=sharing)
+
+2. For training from original pretrained models, download the checkpoints from the model zoo of [OpenPCDet](https://github.com/open-mmlab/OpenPCDet?tab=readme-ov-file#model-zoo)
+
+
 ### Annotation
 
 You can use any annotation tool as long as it can export (or can be converted) to the given dataset format. You can install `labelCloud` from [GitHub](https://github.com/ch-sa/labelCloud). Brief installation instructions for Ubuntu 24.04 are provided below:
@@ -115,46 +119,57 @@ python convert_json_to_txt.py --input_folder /path/to/jsons --output_folder /pat
 
 ## Installation (provided for HPC - Aalto Triton, CUDA 12.8)
 
+1. Create conda environment
 ```bash
-
-# --- 1. Create conda environment ---
 mamba env create -f environment.yml
 source activate openpcdet
+```
 
-# --- 2. Verify CUDA toolkit inside the env ---
+2. Verify CUDA toolkit inside the env
+```bash
 which nvcc && nvcc --version # should print: release 12.6, V12.6.x
+```
 
-
-# if nvcc points to a system version instead, run:
+if nvcc points to a system version instead, run:
+```bash
 export CUDA_HOME="$CONDA_PREFIX"
 export PATH="$CUDA_HOME/bin:$PATH"
 export LD_LIBRARY_PATH="$CUDA_HOME/lib64:$LD_LIBRARY_PATH"
+```
 
-# --- 3. Install PyTorch + CUDA 12.6 ---
+3. Install PyTorch + CUDA 12.6
+```bash
 python -m pip install --upgrade "pip<25" "setuptools<75" "wheel>=0.41"
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+```
 
-# confirm the PyTorch CUDA build (expected: Torch: 2.8.0+cu126  CUDA: 12.6):
+confirm the PyTorch CUDA build (expected: Torch: 2.8.0+cu126  CUDA: 12.6):
+```bash
 python - <<'PY'
 import torch
 print("Torch:", torch.__version__, "CUDA:", torch.version.cuda)
 PY 
+```
 
-# --- 4. Install OpenPCDet ---
+4. Install OpenPCDet (from with the 'lidar-human-detection-models' directory)
+```bash
 git clone https://github.com/open-mmlab/OpenPCDet vendor/OpenPCDet
 cd vendor/OpenPCDet
 rm -rf build *.egg-info pcdet.egg-info
 export TORCH_CUDA_ARCH_LIST="7.0;8.0;8.6;9.0"   # V100, A100, RTX30xx, H100
 python -m pip install -e . --no-build-isolation --config-settings editable_mode=compat
 cd ../..
+```
 
-
-# --- 5. Install matching Torch Scatter + Spconv (CUDA 12.6) ---
+5. Install matching Torch Scatter + Spconv (CUDA 12.6)
+```bash
 export PYTORCH_VER=$(python -c "import torch; print(torch.__version__.split('+')[0])")
 pip install torch-scatter -f https://data.pyg.org/whl/torch-${PYTORCH_VER}+cu126.html
 pip install "cumm-cu126" "spconv-cu126"
+```
 
-# --- 6. Sanity check ---
+6. Sanity check
+```bash
 python - <<'PY'
 import torch, pcdet
 from pcdet.ops.iou3d_nms import iou3d_nms_cuda
@@ -164,28 +179,36 @@ print("pcdet import OK")
 print("iou3d_nms_cuda import OK")
 print("spconv import OK")
 PY
+```
 
+7. Clone the AB3DMOT repo (from within the 'AB3DMOT' directory)
+```bash
+git clone https://github.com/xinshuoweng/AB3DMOT.git
 ```
 
 ## Usage
 
+1. Activate environment
+
 ```bash
-
 source activate openpcdet #. scripts/source.sh
-
 export PYTHONPATH=$PWD:$PYTHONPATH # NOTE: execute after going to detection dir (/PATH/TO/DIR/lidar-human-detection-models)
+```
 
-# --- training (detection) ---
+2. Training (detection)
+```bash
 python lidar_human_detection_models/train.py \
   --cfg_file ./cfgs/nuscenes_voxelnext.yaml \
   --dataset_cfg_file ./cfgs/voxelnext_crane.yaml \
   --pretrained_ckpt ./models/voxelnext_nuscenes_kernel1.pth \
   --output_dir ./fine_tuned_ckpts \
   --batch_size 4 \
-  --epochs 200 \
+  --epochs 250 \
   --lr 5e-4
+```
 
-# --- inference: export predictions to text files (detection) ---
+3. Inference: export predictions to text files (detection)
+```bash
 python lidar_human_detection_models/inference.py \
   --cfg_file ./cfgs/nuscenes_voxelnext.yaml \
   --dataset_cfg_file ./cfgs/voxelnext_crane.yaml \
@@ -193,16 +216,20 @@ python lidar_human_detection_models/inference.py \
   --out_dir outputs/preds_voxelnext \
   --conf_thresh '{"1": 0.45}' \
   --topk 5
-  
-# --- inference (tracking - AB3DMOT) ---
+```
+
+4. Inference (tracking - AB3DMOT). NOTE: make sure that the detections have been run first
+```bash
 python3 ab3dmot_tracking.py \
   --in_dir /PATH/TO/REPO/lidar-human-detection-models/outputs/preds_for_tracks_voxelnext/run_00/preds \
   --out_dir outputs/ab3dmot_txt_voxelnext \
   --fps 3.0 \
   --max_age 3 --min_hits 2 --w_maha 1.0 --w_iou 0.3 \
   --default_score 1.0
-  
-# --- inference (tracking - SimpleTrack) ---
+```
+
+5. Inference (tracking - SimpleTrack). NOTE: make sure that the detections have been run first
+```bash
 python3 simpletrack_tracking.py \
   --in_dir /PATH/TO/REPO/lidar-human-detection-models/outputs/preds_for_tracks_voxelnext/run_00/preds \
   --out_dir outputs/simpletrack_txt_voxelnext \
