@@ -93,16 +93,6 @@ This repository contains the data processing, models and training for Human Dete
 
 ```
 
-### (Optional)
-
-Run the following scripts under `data/` to convert to usable format.
-
-```bash
-python convert_pcd_to_bin.py /path/to/pcd_files /path/to/output
-python convert_json_to_txt.py --input_folder /path/to/jsons --output_folder /path/to/txts
-```
-
-
 ### Annotation
 
 You can use any annotation tool as long as it can export (or can be converted) to the given dataset format. You can install `labelCloud` from [GitHub](https://github.com/ch-sa/labelCloud). Brief installation instructions for Ubuntu 24.04 are provided below:
@@ -113,6 +103,14 @@ python3 -m venv labelcloud_venv
 . labelcloud_venv/bin/activate
 pip install labelCloud
 labelCloud --example
+```
+
+### Format conversion
+Run the following scripts under `data/` to convert to usable format.
+
+```bash
+python convert_pcd_to_bin.py /path/to/pcd_files /path/to/output
+python convert_json_to_txt.py --input_folder /path/to/jsons --output_folder /path/to/txts
 ```
 
 ## Installation (provided for HPC - Aalto Triton, CUDA 12.8)
