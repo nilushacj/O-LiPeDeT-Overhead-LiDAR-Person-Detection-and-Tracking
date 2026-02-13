@@ -94,6 +94,8 @@ This repository contains the data processing, models and training for Human Dete
 
 1. Download our fine-tuned checkpoints from [here](https://drive.google.com/drive/folders/1eNm9W2mOqrCq6ZepU-BIzBEKdWWbFdso?usp=sharing)
 
+2. Download our point cloud data and labels from [here](https://drive.google.com/drive/folders/1tsfBmIWU3GAmrgPrOE7vaS2pqDw016Co?usp=sharing)
+
 2. For training from original pretrained models, download the checkpoints from the model zoo of [OpenPCDet](https://github.com/open-mmlab/OpenPCDet?tab=readme-ov-file#model-zoo)
 
 
