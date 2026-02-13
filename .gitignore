@@ -1,1 +1,10 @@
 lidar-human-detection/fine_tuned_ckpts/
+lidar-human-detection/data/det_dataset/test/labels/
+lidar-human-detection/data/det_dataset/test/pointclouds/
+lidar-human-detection/data/det_dataset/test/pointclouds_all/
+lidar-human-detection/data/det_dataset/training/labels/
+lidar-human-detection/data/det_dataset/training/pointclouds/
+lidar-human-detection/data/det_dataset/validation/labels/
+lidar-human-detection/data/det_dataset/validation/pointclouds/
+lidar-human-detection/data/track_dataset/test/labels/
+lidar-human-detection/data/track_dataset/test/pointclouds/
