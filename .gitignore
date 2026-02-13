@@ -1,3 +1,5 @@
+__pycache__/
+
 lidar-human-detection/fine_tuned_ckpts/
 lidar-human-detection/data/det_dataset/test/labels/
 lidar-human-detection/data/det_dataset/test/pointclouds/
