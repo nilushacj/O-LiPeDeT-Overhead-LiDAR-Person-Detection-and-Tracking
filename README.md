@@ -93,11 +93,9 @@ This repository contains the data processing, models and training for Human Dete
 
 ```
 
-### Gathering real data with the crane
+### (Optional)
 
-1. TODO
-
-2. Run the following scripts under `data/` to convert to usable format.
+Run the following scripts under `data/` to convert to usable format.
 
 ```bash
 python convert_pcd_to_bin.py /path/to/pcd_files /path/to/output
