@@ -1,6 +1,60 @@
 # O-LiPeDeT: Overhead LiDAR Person Detection and Tracking
 
-This repository contains the data processing, models and training for Human Detection using a 3D Lidar attached to an overhead crane.
+This repository contains the data processing, models and training for Human Detection using a 3D Lidar attached to an overhead crane in an indoor work setting.
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="docs/images/crane_full.jpeg" width="520" alt="Crane full"/>
+      <br/>
+    </td>
+    <td align="center">
+      <img src="docs/images/crane_zoomed.jpeg" width="520" alt="Crane zoomed"/>
+      <br/>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="assets/readme/pp_small.png" width="420" alt="PointPillars"/>
+      <br/>
+      <sub><b>PointPillars</b></sub>
+    </td>
+    <td align="center">
+      <img src="assets/readme/second_small.png" width="420" alt="SECOND"/>
+      <br/>
+      <sub><b>SECOND</b></sub>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <img src="assets/readme/voxelnext_small.png" width="420" alt="VoxelNeXt"/>
+      <br/>
+      <sub><b>VoxelNeXt</b></sub>
+    </td>
+    <td align="center">
+      <img src="assets/readme/pp_large.png" width="420" alt="PointPillars"/>
+      <br/>
+      <sub><b>PointPillars</b></sub>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <img src="assets/readme/second_large.png" width="420" alt="SECOND"/>
+      <br/>
+      <sub><b>SECOND</b></sub>
+    </td>
+    <td align="center">
+      <img src="assets/readme/voxelnext_large.png" width="420" alt="VoxelNeXt"/>
+      <br/>
+      <sub><b>VoxelNeXt</b></sub>
+    </td>
+  </tr>
+</table>
 
 ## Dataset
 
