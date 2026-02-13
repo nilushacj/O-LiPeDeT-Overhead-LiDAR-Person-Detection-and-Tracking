@@ -5,11 +5,11 @@ This repository contains the data processing, models and training for Human Dete
 <table>
   <tr>
     <td align="center">
-      <img src="docs/images/crane_full.jpeg" width="520" alt="Crane full"/>
+      <img src="docs/images/crane_full.png" width="520" alt="Crane full"/>
       <br/>
     </td>
     <td align="center">
-      <img src="docs/images/crane_zoomed.jpeg" width="520" alt="Crane zoomed"/>
+      <img src="docs/images/crane_zoomed.png" width="520" alt="Crane zoomed"/>
       <br/>
     </td>
   </tr>
@@ -18,43 +18,41 @@ This repository contains the data processing, models and training for Human Dete
 <table>
   <tr>
     <td align="center">
-      <img src="assets/readme/pp_small.png" width="420" alt="PointPillars"/>
+      <img src="assets/readme/pp_small.png" width="280" alt="PointPillars"/>
       <br/>
       <sub><b>PointPillars</b></sub>
     </td>
     <td align="center">
-      <img src="assets/readme/second_small.png" width="420" alt="SECOND"/>
+      <img src="assets/readme/second_small.png" width="280" alt="SECOND"/>
       <br/>
       <sub><b>SECOND</b></sub>
     </td>
-  </tr>
-
-  <tr>
     <td align="center">
-      <img src="assets/readme/voxelnext_small.png" width="420" alt="VoxelNeXt"/>
+      <img src="assets/readme/voxelnext_small.png" width="280" alt="VoxelNeXt"/>
       <br/>
       <sub><b>VoxelNeXt</b></sub>
     </td>
-    <td align="center">
-      <img src="assets/readme/pp_large.png" width="420" alt="PointPillars"/>
-      <br/>
-      <sub><b>PointPillars</b></sub>
-    </td>
   </tr>
 
   <tr>
     <td align="center">
-      <img src="assets/readme/second_large.png" width="420" alt="SECOND"/>
+      <img src="assets/readme/pp_large.png" width="280" alt="PointPillars"/>
+      <br/>
+      <sub><b>PointPillars</b></sub>
+    </td>
+    <td align="center">
+      <img src="assets/readme/second_large.png" width="280" alt="SECOND"/>
       <br/>
       <sub><b>SECOND</b></sub>
     </td>
     <td align="center">
-      <img src="assets/readme/voxelnext_large.png" width="420" alt="VoxelNeXt"/>
+      <img src="assets/readme/voxelnext_large.png" width="280" alt="VoxelNeXt"/>
       <br/>
       <sub><b>VoxelNeXt</b></sub>
     </td>
   </tr>
 </table>
+
 
 ## Dataset
 
