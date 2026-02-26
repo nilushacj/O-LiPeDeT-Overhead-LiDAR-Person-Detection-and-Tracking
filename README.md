@@ -119,7 +119,12 @@ python convert_pcd_to_bin.py /path/to/pcd_files /path/to/output
 python convert_json_to_txt.py --input_folder /path/to/jsons --output_folder /path/to/txts
 ```
 
-## Installation (provided for HPC - Aalto Triton, CUDA 12.8)
+## Important before installation
+
+- **An NVIDIA GPU is required** to install and use OpenPCDet in this repository. OpenPCDet builds and uses CUDA extensions, so both **training and inference** require an NVIDIA GPU with a compatible CUDA setup. Your driver must be new enough to support the CUDA version used by the environment. Even if the packages install successfully, an incompatible driver can cause runtime failures.
+
+
+## Installation (provided for HPC - Aalto Triton, CUDA 12.6)
 
 1. Create conda environment
 ```bash
@@ -129,7 +134,7 @@ source activate openpcdet
 
 2. Verify CUDA toolkit inside the env
 ```bash
-which nvcc && nvcc --version # should print: release 12.6, V12.6.x
+which nvcc && nvcc --version # the CUDA toolkit seen via `nvcc` and the CUDA version used by PyTorch should be compatible with the wheels you install below. In this guide, the expected PyTorch build is cu126.
 ```
 
 if nvcc points to a system version instead, run:
@@ -158,10 +163,29 @@ PY
 git clone https://github.com/open-mmlab/OpenPCDet vendor/OpenPCDet
 cd vendor/OpenPCDet
 rm -rf build *.egg-info pcdet.egg-info
-export TORCH_CUDA_ARCH_LIST="7.0;8.0;8.6;9.0"   # V100, A100, RTX30xx, H100
+export TORCH_CUDA_ARCH_LIST="7.0;8.0;8.6;9.0" # edit this list to include your GPU architecture
 python -m pip install -e . --no-build-isolation --config-settings editable_mode=compat
 cd ../..
 ```
+> **Note:** `TORCH_CUDA_ARCH_LIST` must include the compute capability of your GPU.  
+> Our setting above includes some common architectures:
+> - `7.0` = V100
+> - `8.0` = A100
+> - `8.6` = RTX 30xx / A40
+> - `9.0` = H100  
+>
+> If your GPU has a different compute capability, **add it to the list** before installation. Otherwise, OpenPCDet or its CUDA extensions may build incorrectly or fail at runtime.
+
+> **Troubleshooting:** if
+> ```bash
+> python -m pip install -e . --no-build-isolation --config-settings editable_mode=compat
+> ```
+> fails with an out-of-memory (OOM) error during compilation, first try freeing RAM and/or reducing other running jobs. A common workaround is to execute:
+>
+> ```bash
+> MAX_JOBS=1
+> ```
+>prior to the install command.
 
 5. Install matching Torch Scatter + Spconv (CUDA 12.6)
 ```bash
@@ -169,6 +193,7 @@ export PYTORCH_VER=$(python -c "import torch; print(torch.__version__.split('+')
 pip install torch-scatter -f https://data.pyg.org/whl/torch-${PYTORCH_VER}+cu126.html
 pip install "cumm-cu126" "spconv-cu126"
 ```
+> **Important:** if you use a different CUDA version from what is recommended above, ensure that the installed versions of **PyTorch, CUDA, `torch-scatter`, `cumm`, and `spconv`** all target the **same CUDA version**. Mixing packages built for different CUDA versions is one of the most common causes of installation or import errors.
 
 6. Sanity check
 ```bash
